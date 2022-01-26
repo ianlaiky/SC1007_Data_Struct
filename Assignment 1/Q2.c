@@ -80,7 +80,7 @@ LinkedList rearrange(LinkedList ll) {
     int currentIndex = 0;
 
 
-    if (size % 2 == 0) {
+//    if (size % 2 == 0) {
         while (cur != NULL) {
             if (currentIndex < (size / 2)) {
                 if (node1Head == NULL) {
@@ -90,8 +90,6 @@ LinkedList rearrange(LinkedList ll) {
                     node1Tail->next = cur;
                     node1Tail = cur;
                 }
-
-
             }else{
                 if (node2Head == NULL) {
                     node2Head = cur;
@@ -105,13 +103,13 @@ LinkedList rearrange(LinkedList ll) {
             currentIndex++;
         }
 
-    }
+//    }
 
 
 
     LinkedList *test = malloc(sizeof(LinkedList));
     test->head = node1Head;
-    test->size = size / 2;
+    test->size = size;
 
 
     return *test;
