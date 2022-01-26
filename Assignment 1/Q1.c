@@ -61,12 +61,6 @@ void deleteList(ListNode **ptrHead) {
 
 void triPartition(ListNode **head, int pivot) {
 
-    if (*head == NULL || pivot == 0) {
-        *head = NULL;
-
-    }else{
-
-
     ListNode *cur = *head;
     ListNode *prev = NULL;
     ListNode *temp;
@@ -134,7 +128,7 @@ void triPartition(ListNode **head, int pivot) {
 
 
 }
-}
+
 
 
 
