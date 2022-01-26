@@ -13,8 +13,6 @@ void deleteList(ListNode **ptrHead);
 
 void reverseKNodes(ListNode **head, int K);
 
-void push(ListNode **head, int data);
-
 ListNode *reverse(ListNode *head, int K);
 
 int main() {
@@ -64,17 +62,15 @@ void deleteList(ListNode **ptrHead) {
 
 void reverseKNodes(ListNode **head, int K) {
 
-    *head = reverse(*head, K);
+    if (K == 0) {
+        *head = *head;
+    } else {
+        *head = reverse(*head, K);
+    }
+
 
 }
 
-
-void push(ListNode **head, int data) {
-    ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
-    new_node->item = data;
-    new_node->next = *head;
-    *head = new_node;
-}
 
 ListNode *reverse(ListNode *head, int K) {
     if (head == NULL) {
@@ -84,7 +80,18 @@ ListNode *reverse(ListNode *head, int K) {
     ListNode *cur = head;
     ListNode *next = NULL;
     ListNode *prev = NULL;
+    ListNode *lessThanK = head;
     int tempK = K;
+    int cnt = 0;
+
+    while (lessThanK != NULL) {
+
+        cnt++;
+        lessThanK = lessThanK->next;
+    }
+    if (cnt < K) {
+        return head;
+    }
 
     while (cur != NULL && tempK > 0) {
         next = cur->next;
@@ -92,7 +99,9 @@ ListNode *reverse(ListNode *head, int K) {
         prev = cur;
         cur = next;
         tempK--;
+        cnt++;
     }
+
 
     if (next != NULL) {
         head->next = reverse(next, K);
