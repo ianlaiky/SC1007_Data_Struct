@@ -69,6 +69,7 @@ void reverseKNodes(ListNode **head, int K) {
     while (cur != NULL) {
 
 
+
         push(&temp, cur->item);
         cur = cur->next;
         tempK--;
@@ -76,8 +77,10 @@ void reverseKNodes(ListNode **head, int K) {
     }
     *head = temp;
 
-    printf("\n");
+
 }
+
+
 
 void push(ListNode **head, int data) {
     ListNode *new_node = (ListNode *) malloc(sizeof(ListNode));
