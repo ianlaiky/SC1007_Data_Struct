@@ -116,9 +116,49 @@ LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
     }
 
 
+    int alternate = 0;
+    ListNode *temp = NULL;
+
     LinkedList *test = malloc(sizeof(LinkedList));
-    test->head = node1Head;
+    test->head = temp;
     test->size = size;
+
+    int index = 0;
+
+    while (index < size) {
+        if (alternate == 0) {
+
+            if (temp == NULL) {
+                temp = node1Head;
+                temp->next = NULL;
+            } else {
+
+                temp->next = node1Head;
+                temp = temp->next;
+                temp->next = NULL;
+            }
+            node1Head = node1Head->next;
+
+            alternate = 1;
+
+        } else {
+            if (temp == NULL) {
+                temp = node2Head;
+                temp->next = NULL;
+            } else {
+
+                temp->next = node2Head;
+                temp = temp->next;
+                temp->next = NULL;
+            }
+            node2Head = node2Head->next;
+
+            alternate = 0;
+        }
+
+        index++;
+    }
+
 
 
     return *test;
