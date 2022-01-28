@@ -81,40 +81,39 @@ LinkedList rearrange(LinkedList ll) {
 
 
 //    if (size % 2 == 0) {
-        while (cur != NULL) {
-            if (currentIndex < (size / 2)) {
-                if (node1Head == NULL) {
-                    node1Head = cur;
-                    node1Tail = cur;
-                } else {
-                    node1Tail->next = cur;
-                    node1Tail = cur;
-                }
-            }else{
-                if (node2Head == NULL) {
-                    node2Head = cur;
-                    node2Tail = cur;
-                } else {
-                    node2Tail->next = cur;
-                    node2Tail = cur;
-                }
+    while (cur != NULL) {
+        if (currentIndex < (size / 2)) {
+            if (node1Head == NULL) {
+                node1Head = cur;
+                node1Tail = cur;
+            } else {
+                node1Tail->next = cur;
+                node1Tail = cur;
             }
-            cur = cur->next;
-            currentIndex++;
+        } else {
+            node1Tail->next = NULL;
+            if (node2Head == NULL) {
+                node2Head = cur;
+                node2Tail = cur;
+            } else {
+                node2Tail->next = cur;
+                node2Tail = cur;
+            }
         }
+        cur = cur->next;
+        currentIndex++;
+    }
 
 //    }
 
 
 
     LinkedList *test = malloc(sizeof(LinkedList));
-    test->head = node1Head;
+    test->head = node2Head;
     test->size = size;
 
 
     return *test;
 
 
-
-// Write your code here
 }
