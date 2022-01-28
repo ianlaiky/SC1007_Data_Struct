@@ -16,6 +16,8 @@ void printList(LinkedList ll);
 
 void deleteList(LinkedList *llptr);
 
+LinkedList split_and_rearrange(LinkedList ll, int arrange_type);
+
 LinkedList rearrange(LinkedList ll);
 
 int main() {
@@ -71,6 +73,16 @@ void deleteList(LinkedList *llptr) {
 
 LinkedList rearrange(LinkedList ll) {
 
+    LinkedList first = split_and_rearrange(ll, 0);
+
+
+    return first;
+
+
+}
+
+LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
+
     int size = ll.size;
     ListNode *node1Head = NULL;
     ListNode *node2Head = NULL;
@@ -80,7 +92,6 @@ LinkedList rearrange(LinkedList ll) {
     int currentIndex = 0;
 
 
-//    if (size % 2 == 0) {
     while (cur != NULL) {
         if (currentIndex < (size / 2)) {
             if (node1Head == NULL) {
@@ -104,12 +115,9 @@ LinkedList rearrange(LinkedList ll) {
         currentIndex++;
     }
 
-//    }
-
-
 
     LinkedList *test = malloc(sizeof(LinkedList));
-    test->head = node2Head;
+    test->head = node1Head;
     test->size = size;
 
 
@@ -117,3 +125,7 @@ LinkedList rearrange(LinkedList ll) {
 
 
 }
+
+
+
+
