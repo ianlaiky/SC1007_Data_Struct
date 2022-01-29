@@ -73,10 +73,11 @@ void deleteList(LinkedList *llptr) {
 
 LinkedList rearrange(LinkedList ll) {
 
-    LinkedList first = split_and_rearrange(ll, 0);
+    LinkedList first = split_and_rearrange(ll, 1);
+    LinkedList second = split_and_rearrange(first, 0);
 
 
-    return first;
+    return second;
 
 
 }
@@ -116,12 +117,10 @@ LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
     }
 
 
-    int alternate = 0;
+    int alternate = arrange_type;
     ListNode *temp = NULL;
+    ListNode *tempHead = NULL;
 
-    LinkedList *test = malloc(sizeof(LinkedList));
-    test->head = temp;
-    test->size = size;
 
     int index = 0;
 
@@ -129,28 +128,43 @@ LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
         if (alternate == 0) {
 
             if (temp == NULL) {
-                temp = node1Head;
-                temp->next = NULL;
-            } else {
 
-                temp->next = node1Head;
+                ListNode *single = malloc(sizeof(ListNode));
+                single->item = node1Head->item;
+                single->next = NULL;
+                temp = single;
+                tempHead = temp;
+
+            } else {
+                ListNode *single = malloc(sizeof(ListNode));
+                single->item = node1Head->item;
+                temp->next = single;
                 temp = temp->next;
                 temp->next = NULL;
-            }
-            node1Head = node1Head->next;
 
+
+            }
+
+            node1Head = node1Head->next;
             alternate = 1;
 
         } else {
             if (temp == NULL) {
-                temp = node2Head;
-                temp->next = NULL;
-            } else {
 
-                temp->next = node2Head;
+
+                ListNode *single = malloc(sizeof(ListNode));
+                single->item = node2Head->item;
+                single->next = NULL;
+                temp = single;
+                tempHead = temp;
+            } else {
+                ListNode *single = malloc(sizeof(ListNode));
+                single->item = node2Head->item;
+                temp->next = single;
                 temp = temp->next;
                 temp->next = NULL;
             }
+
             node2Head = node2Head->next;
 
             alternate = 0;
@@ -159,7 +173,9 @@ LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
         index++;
     }
 
-
+    LinkedList *test = malloc(sizeof(LinkedList));
+    test->head = tempHead;
+    test->size = size;
 
     return *test;
 
