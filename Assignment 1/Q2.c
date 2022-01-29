@@ -72,7 +72,8 @@ void deleteList(LinkedList *llptr) {
 }
 
 LinkedList rearrange(LinkedList ll) {
-
+    if (ll.size == 1)
+        return ll;
     LinkedList first = split_and_rearrange(ll, 1);
     LinkedList second = split_and_rearrange(first, 0);
 
@@ -123,56 +124,105 @@ LinkedList split_and_rearrange(LinkedList ll, int arrange_type) {
 
 
     int index = 0;
+    if (size % 2 == 0) {
+        while (index < size) {
+            if (alternate == 0) {
 
-    while (index < size) {
-        if (alternate == 0) {
+                if (temp == NULL) {
 
-            if (temp == NULL) {
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node1Head->item;
+                    single->next = NULL;
+                    temp = single;
+                    tempHead = temp;
 
-                ListNode *single = malloc(sizeof(ListNode));
-                single->item = node1Head->item;
-                single->next = NULL;
-                temp = single;
-                tempHead = temp;
+                } else {
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node1Head->item;
+                    temp->next = single;
+                    temp = temp->next;
+                    temp->next = NULL;
+
+
+                }
+
+                node1Head = node1Head->next;
+                alternate = 1;
 
             } else {
-                ListNode *single = malloc(sizeof(ListNode));
-                single->item = node1Head->item;
-                temp->next = single;
-                temp = temp->next;
-                temp->next = NULL;
+                if (temp == NULL) {
 
 
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node2Head->item;
+                    single->next = NULL;
+                    temp = single;
+                    tempHead = temp;
+                } else {
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node2Head->item;
+                    temp->next = single;
+                    temp = temp->next;
+                    temp->next = NULL;
+                }
+
+                node2Head = node2Head->next;
+
+                alternate = 0;
             }
 
-            node1Head = node1Head->next;
-            alternate = 1;
-
-        } else {
-            if (temp == NULL) {
-
-
-                ListNode *single = malloc(sizeof(ListNode));
-                single->item = node2Head->item;
-                single->next = NULL;
-                temp = single;
-                tempHead = temp;
-            } else {
-                ListNode *single = malloc(sizeof(ListNode));
-                single->item = node2Head->item;
-                temp->next = single;
-                temp = temp->next;
-                temp->next = NULL;
-            }
-
-            node2Head = node2Head->next;
-
-            alternate = 0;
+            index++;
         }
+    } else {
+        while (index < size) {
+            if (alternate == 0 && size - index != 1) {
 
-        index++;
+                if (temp == NULL) {
+
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node1Head->item;
+                    single->next = NULL;
+                    temp = single;
+                    tempHead = temp;
+
+                } else {
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node1Head->item;
+                    temp->next = single;
+                    temp = temp->next;
+                    temp->next = NULL;
+
+
+                }
+
+                node1Head = node1Head->next;
+                alternate = 1;
+
+            } else {
+                if (temp == NULL) {
+
+
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node2Head->item;
+                    single->next = NULL;
+                    temp = single;
+                    tempHead = temp;
+                } else {
+                    ListNode *single = malloc(sizeof(ListNode));
+                    single->item = node2Head->item;
+                    temp->next = single;
+                    temp = temp->next;
+                    temp->next = NULL;
+                }
+
+                node2Head = node2Head->next;
+
+                alternate = 0;
+            }
+
+            index++;
+        }
     }
-
     LinkedList *test = malloc(sizeof(LinkedList));
     test->head = tempHead;
     test->size = size;
