@@ -146,6 +146,49 @@ int isEmptyStack(Stack s) {
 
 
 void in2PreLL(char *infix, LinkedList *inExpLL) {
+
+// size of char pointer
+    int size = 0;
+    ListNode *nodetemp = malloc(sizeof(ListNode));
+    LinkedList *temp = inExpLL;
+
+
+
+    LinkedList *temp2 = temp;
+
+    while (infix[size] != '\0') {
+
+        // Separate numbers and operand
+        if (infix[size] >= '0' && infix[size] <= '9') {
+            insertNode(temp, infix[size]- '0' , OPERAND);
+//            printf("%d\n", infix[size] - '0');
+        } else if (infix[size] == '(' || infix[size] == ')' || infix[size] == '+' || infix[size] == '-' ||
+                   infix[size] == '*' || infix[size] == '/') {
+            insertNode(temp, infix[size], OPT);
+//            printf("%c\n", infix[size]);
+        }
+        size++;
+
+
+    }
+    // push linked list to stack
+    Stack *stack = malloc(sizeof(Stack));
+    StackNode *stacknode = malloc(sizeof(StackNode));
+    stack->head = stacknode;
+    stack->size = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
     //Write your code here
 }
 
