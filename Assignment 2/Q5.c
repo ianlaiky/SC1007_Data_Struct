@@ -144,30 +144,112 @@ int isEmptyStack(Stack s) {
     else return 0;
 }
 
+int getPriority(char C) {
+    if (C == '-' || C == '+')
+        return 1;
+    else if (C == '*' || C == '/')
+        return 2;
+
+    return 0;
+}
 
 void in2PreLL(char *infix, LinkedList *inExpLL) {
 
-    // Infix expression to postfix expression
-    Stack operatorStack;
-    operatorStack.head = NULL;
-    operatorStack.size = 0;
-    Stack operandStack;
-    operandStack.head = NULL;
-    operandStack.size = 0;
+    // calculate size of string
+    int size = 0;
+    while (infix[size] != '\0')
+        size++;
+
+    // Reverse the infix expression
+    char *infixReverse = malloc(sizeof(char) * size);
+    int i = size - 1;
+    int j = 0;
+    while (i >= 0) {
+        infixReverse[j] = infix[i];
+        i--;
+        j++;
+    }
+    infixReverse[j] = '\0';
+
+//    printf("%s\n", infixReverse);
+
+    // Replace ( with ) and vice versa
+
+    char *infixReverse2 = malloc(sizeof(char) * size);
+    i = 0;
+    j = 0;
+    while (infixReverse[i] != '\0') {
+        if (infixReverse[i] == '(') {
+            infixReverse2[j] = ')';
+            j++;
+        } else if (infixReverse[i] == ')') {
+            infixReverse2[j] = '(';
+            j++;
+        } else {
+            infixReverse2[j] = infixReverse[i];
+            j++;
+        }
+        i++;
+    }
+    infixReverse2[j] = '\0';
+
+//    printf("%s\n", infixReverse2);
+
+    // Add ( to start and ) to end of string
+    char *infixReverse3 = malloc(sizeof(char) * size + 2);
+    infixReverse3[0] = '(';
+    i = 0;
+    j = 1;
+    while (infixReverse2[i] != '\0') {
+        infixReverse3[j] = infixReverse2[i];
+        i++;
+        j++;
+    }
+    infixReverse3[j] = ')';
+    infixReverse3[j + 1] = '\0';
 
 
-    int i = 0;
+//    printf("%s\n", infixReverse3);
 
-    while (infix[i] != '\0') {
-        if (infix[i] >= '0' && infix[i] <= '9') {
-            push(&operandStack, infix[i]);
-            i++;
+    // Infix to postfix
+    Stack s;
+    s.head = NULL;
+    s.size = 0;
 
-        }else{
+    int ia = 0;
+
+    while (infixReverse3[ia] != '\0') {
+        if (infixReverse3[ia] == '(') {
+            push(&s, infixReverse3[ia]);
+        } else if (infixReverse3[ia] == ')') {
+            while (peek(s) != '(') {
+                insertNode(inExpLL, peek(s), OPT);
+                pop(&s);
+            }
+            pop(&s);
+        } else if (infixReverse3[ia] == '+' || infixReverse3[ia] == '-' || infixReverse3[ia] == '*' ||
+                   infixReverse3[ia] == '/') {
+            while (!isEmptyStack(s) && getPriority(peek(s)) >= getPriority(infixReverse3[ia])) {
+                insertNode(inExpLL, peek(s), OPT);
+                pop(&s);
+            }
+            push(&s, infixReverse3[ia]);
+        } else {
+
+            int num = 0;
+            while (infixReverse3[ia] >= '0' && infixReverse3[ia] <= '9') {
+                num = num * 10 + (infixReverse3[ia] - '0');
+                ia++;
+            }
+            ia--;
+            insertNode(inExpLL, num, OPERAND);
+
 
         }
-
+        ia++;
     }
+
+
 }
 
 
