@@ -235,14 +235,25 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
             }
             push(&s, infixReverse3[ia]);
         } else {
+            Stack tempStack;
+            tempStack.head = NULL;
+            tempStack.size = 0;
 
-            int num = 0;
+
             while (infixReverse3[ia] >= '0' && infixReverse3[ia] <= '9') {
-                num = num * 10 + (infixReverse3[ia] - '0');
+                push(&tempStack, infixReverse3[ia]);
                 ia++;
             }
             ia--;
-            insertNode(inExpLL, num, OPERAND);
+            int num = 0;
+            //reverse number
+            int numReverse = 0;
+            while(tempStack.head != NULL) {
+                numReverse = numReverse * 10 + (peek(tempStack)-'0');
+                pop(&tempStack);
+            }
+
+            insertNode(inExpLL, numReverse, OPERAND);
 
 
         }
