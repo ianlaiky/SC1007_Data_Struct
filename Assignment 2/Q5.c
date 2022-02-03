@@ -229,7 +229,7 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
             pop(&s);
         } else if (infixReverse3[ia] == '+' || infixReverse3[ia] == '-' || infixReverse3[ia] == '*' ||
                    infixReverse3[ia] == '/') {
-            while (!isEmptyStack(s) && getPriority(peek(s)) >= getPriority(infixReverse3[ia])) {
+            while (!isEmptyStack(s) && getPriority(peek(s)) > getPriority(infixReverse3[ia])) {
                 insertNode(inExpLL, peek(s), OPT);
                 pop(&s);
             }
@@ -248,6 +248,15 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
         }
         ia++;
     }
+
+    while (!isEmptyStack(s)) {
+        insertNode(inExpLL, peek(s), OPT);
+        pop(&s);
+    }
+
+    free(infixReverse);
+    free(infixReverse2);
+    free(infixReverse3);
 
 
 }
