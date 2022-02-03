@@ -257,7 +257,7 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
 
 
         }else{
-            continue;
+
         }
         ia++;
     }
