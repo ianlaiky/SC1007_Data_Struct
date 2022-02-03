@@ -245,7 +245,7 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
                 ia++;
             }
             ia--;
-            int num = 0;
+
             //reverse number
             int numReverse = 0;
             while (tempStack.head != NULL) {
