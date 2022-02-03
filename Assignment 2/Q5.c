@@ -234,7 +234,7 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
                 pop(&s);
             }
             push(&s, infixReverse3[ia]);
-        } else {
+        } else if(infixReverse3[ia] >= '0' && infixReverse3[ia] <= '9'){
             Stack tempStack;
             tempStack.head = NULL;
             tempStack.size = 0;
@@ -256,6 +256,8 @@ void in2PreLL(char *infix, LinkedList *inExpLL) {
             insertNode(inExpLL, numReverse, OPERAND);
 
 
+        }else{
+            continue;
         }
         ia++;
     }

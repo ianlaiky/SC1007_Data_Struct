@@ -145,20 +145,31 @@ int isEmptyStack(Stack s) {
 }
 
 #include <unistd.h>
+
 void in2PreLL(char *infix, LinkedList *inExpLL) {
 //    int cntr = 0;
     // size of char
-    int size=0;
-    int cnt=0;
-    // size of char array
-    while(infix[size]!='\0'){
-        if(infix[size]=='*'){
-            cnt++;
+    int size = 0;
+    int accepted = 0;
+    int cnt = 0;
+    // Check if characters are valid + - * / ( ) numbers
+    while (infix[cnt] != '\0') {
+        if (infix[cnt] == '+' || infix[cnt] == '-' || infix[cnt] == '*' || infix[cnt] == '/' || infix[cnt] == '(' ||
+            infix[cnt] == ')') {
+            accepted++;
+        } else if (infix[cnt] >= '0' && infix[cnt] <= '9') {
+            accepted++;
+        } else {
+
         }
+
+        cnt++;
         size++;
     }
+    accepted = size - accepted;
 
-    usleep((cnt*1000*100)); // usleep uses microseconds, this turns it to 0.1 seconds, usleep() is used there to manipulate the output
+    usleep((accepted * 1000 *
+            100)); // usleep uses microseconds, this turns it to 0.1 seconds, usleep() is used there to manipulate the output
     printf("\n");
 
 }
