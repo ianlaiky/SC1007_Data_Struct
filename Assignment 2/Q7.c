@@ -118,9 +118,9 @@ int numMountainPairs(CDblLinkedList CDLL) {
 
         temp2 = temp->next->next;
         int tempItem = temp->next->item;
-        printf("%s %d \n", "new Loop -----------------",tempItem);
+//        printf("%s %d \n", "new Loop -----------------",tempItem);
         for (int j = 0; j < CDLL.size - 3; ++j) {
-            printf("Checking:%d %d\n", temp->item, temp2->item);
+//            printf("Checking:%d %d\n", temp->item, temp2->item);
 
             // Check if pairs exists
             int exists = 0;
@@ -128,43 +128,44 @@ int numMountainPairs(CDblLinkedList CDLL) {
             while (tempPair_1 != NULL) {
                 if ((tempPair_1->item == temp && tempPair_1->item2 == temp2) ||
                     (tempPair_1->item == temp2 && tempPair_1->item2 == temp)) {
-                    printf("Pair exists: %d %d\n", temp->item, temp2->item);
+//                    printf("Pair exists: %d %d\n", temp->item, temp2->item);
                     exists = 1;
 
                 }
                 tempPair_1 = tempPair_1->next;
             }
-            if (exists == 0) {
+//            if (exists == 0) {
 
-                if (temp2->item >= tempItem && temp->item>=tempItem) {
+            if (temp2->item >= tempItem && temp->item >= tempItem) {
 
-                    printf("%d %d Temp: %d\n", temp->item, temp2->item,tempItem);
-                    tempItem = temp2->item;
-                    numP++;
-                    if (pairs == NULL) {
-                        pairs = (CDblListNode2 *) malloc(sizeof(CDblListNode2));
-                        pairs->item = temp;
-                        pairs->item2 = temp2;
-                        pairs->next = NULL;
-                    } else {
-                        CDblListNode2 *tempPairs = pairs;
-                        while (tempPairs->next != NULL) {
-                            tempPairs = tempPairs->next;
-                        }
-                        tempPairs->next = (CDblListNode2 *) malloc(sizeof(CDblListNode2));
-                        tempPairs->next->item = temp;
-                        tempPairs->next->item2 = temp2;
-                        tempPairs->next->next = NULL;
+//                    printf("%d %d Temp: %d\n", temp->item, temp2->item,tempItem);
+                tempItem = temp2->item;
+                if (exists == 0) { numP++; }
+
+                if (pairs == NULL) {
+                    pairs = (CDblListNode2 *) malloc(sizeof(CDblListNode2));
+                    pairs->item = temp;
+                    pairs->item2 = temp2;
+                    pairs->next = NULL;
+                } else {
+                    CDblListNode2 *tempPairs = pairs;
+                    while (tempPairs->next != NULL) {
+                        tempPairs = tempPairs->next;
                     }
+                    tempPairs->next = (CDblListNode2 *) malloc(sizeof(CDblListNode2));
+                    tempPairs->next->item = temp;
+                    tempPairs->next->item2 = temp2;
+                    tempPairs->next->next = NULL;
                 }
             }
+//            }
 
 
             temp2 = temp2->next;
         }
         temp = temp->next;
     }
-    return numP+CDLL.size;
+    return numP + CDLL.size;
 
 }
 
