@@ -68,44 +68,6 @@ int isEmptyStack(Stack s){
 void in2Post(char* infix, char* postfix)
 {
     // Convert the infix expression to postfix expression
-    Stack s;
-    s.size = 0;
-    s.head = NULL;
-
-    int i = 0;
-
-
-    while(infix[i] != '\0'){
-        if(infix[i] == '('){
-            push(&s, infix[i]);
-        }
-        else if(infix[i] == ')'){
-            while(peek(s) != '('){
-                postfix[i] = pop(&s);
-                i++;
-            }
-            pop(&s);
-        }
-        else if(infix[i] == '+' || infix[i] == '-' || infix[i] == '*' || infix[i] == '/'){
-            while(!isEmptyStack(s) && peek(s) != '(' && (peek(s) == '+' || peek(s) == '-' || peek(s) == '*' || peek(s) == '/')){
-                postfix[i] = pop(&s);
-                i++;
-            }
-            push(&s, infix[i]);
-        }
-        else{
-            postfix[i] = infix[i];
-            i++;
-        }
-        i++;
-    }
-
-    while(!isEmptyStack(s)){
-        postfix[i] = pop(&s);
-        i++;
-    }
-    postfix[i] = '\0';
-
  
  
  
