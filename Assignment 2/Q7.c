@@ -106,6 +106,14 @@ typedef struct _dbllistnode2 {
 } CDblListNode2;
 
 int numMountainPairs(CDblLinkedList CDLL) {
+    if (CDLL.size ==3)
+        return 3;
+    if (CDLL.size ==2)
+        return 1;
+    if (CDLL.size ==1)
+        return 0;
+
+
     int numP = 0;
     CDblListNode *temp = CDLL.head;
     CDblListNode *temp2 = temp;
