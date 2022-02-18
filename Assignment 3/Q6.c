@@ -101,7 +101,9 @@ void deleteTree(BTNode **root) {
 }
 
 void createExpTree(BTNode **root, char *prefix) {
-    //Write your code here
+    // Expression tree from prefix expression
+
+
 
 }
 
