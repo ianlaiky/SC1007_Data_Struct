@@ -68,10 +68,6 @@ void postOrder(BTNode *cur) {
 #include <string.h>
 
 void buildTree(BTNode **node, char *preO, char *postO) {
-    // generate binary tree from preorder and postorder
-
-
-
     if (preO[0] == '\0' || postO[0] == '\0') {
 //        printf("TRUE");
         *node = NULL;
@@ -79,11 +75,11 @@ void buildTree(BTNode **node, char *preO, char *postO) {
     }
 
     if (strlen(preO) == 1 && strlen(postO) == 1) {
-//        *node = (BTNode *) malloc(sizeof(BTNode));
-//        (*node)->id = preO[0];
-//        (*node)->left = NULL;
-//        (*node)->right = NULL;
-//printf("NODE%c\n", preO[0]);
+        *node = (BTNode *) malloc(sizeof(BTNode));
+        (*node)->id = preO[0];
+        (*node)->left = NULL;
+        (*node)->right = NULL;
+
         return;
     }
 
@@ -178,7 +174,6 @@ void buildTree(BTNode **node, char *preO, char *postO) {
     buildTree(&root->right, temprightpreO, temprightpostO);
 
     *node = root;
-
 
 
 }
