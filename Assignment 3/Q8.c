@@ -27,13 +27,13 @@ int main() {
     BTNode *root = NULL;
     buildTree(&root, preO, postO);
     if (root == NULL) printf("error\n");
-//    preOrder(root);
-//    printf("\n");
-//    postOrder(root);
-//    printf("\n");
-//
-//    inOrder(root);
-//    printf("\n");
+    preOrder(root);
+    printf("\n");
+    postOrder(root);
+    printf("\n");
+
+    inOrder(root);
+    printf("\n");
 
     return 0;
 }
@@ -70,13 +70,15 @@ void postOrder(BTNode *cur) {
 void buildTree(BTNode **node, char *preO, char *postO) {
     // generate binary tree from preorder and postorder
 
+
+
     if (preO[0] == '\0' || postO[0] == '\0') {
-        printf("TRUE");
-//        *node = NULL;
+//        printf("TRUE");
+        *node = NULL;
         return;
     }
 
-    if(strlen(preO) == 1 && strlen(postO) == 1) {
+    if (strlen(preO) == 1 && strlen(postO) == 1) {
 //        *node = (BTNode *) malloc(sizeof(BTNode));
 //        (*node)->id = preO[0];
 //        (*node)->left = NULL;
@@ -85,8 +87,6 @@ void buildTree(BTNode **node, char *preO, char *postO) {
         return;
     }
 
-
-    printf("ROOT: %c\n", preO[0]);
 
     char *templeftpreO = malloc(sizeof(char) * MAX_N);
     int templeftindex = 0;
@@ -102,7 +102,7 @@ void buildTree(BTNode **node, char *preO, char *postO) {
         templeftindex++;
     }
     templeftpreO[templeftindex - 1] = '\0';
-    printf("LEFTpreO: %s\n", templeftpreO);
+
 
     while (postO[templeftpostoindex] != preO[1]) {
         templeftpostO[templeftpostoindex] = postO[templeftpostoindex];
@@ -111,7 +111,6 @@ void buildTree(BTNode **node, char *preO, char *postO) {
 
     templeftpostO[templeftpostoindex] = preO[1];
     templeftpostO[templeftpostoindex + 1] = '\0';
-    printf("LEFTposto: %s\n", templeftpostO);
 
 
     while (preO[templeftindex] != preO[strlen(preO) - 1]) {
@@ -124,7 +123,7 @@ void buildTree(BTNode **node, char *preO, char *postO) {
 
     temprightpreO[temprightindex] = preO[strlen(preO) - 1];
     temprightpreO[temprightindex + 1] = '\0';
-    printf("RIGHTpreo: %s\n", temprightpreO);
+
 
     templeftpostoindex++;
     while (postO[templeftpostoindex] != postO[strlen(postO) - 1]) {
@@ -135,13 +134,50 @@ void buildTree(BTNode **node, char *preO, char *postO) {
 
 
     temprightpostO[temprightpostoindex] = '\0';
+//    printf("ROOT: %c\n", preO[0]);
+//    printf("LEFTpreO: %s\n", templeftpreO);
+//    printf("LEFTposto: %s\n", templeftpostO);
+//    printf("RIGHTpreo: %s\n", temprightpreO);
+//    printf("RIGHTposto: %s\n", temprightpostO);
 
-    printf("RIGHTposto: %s\n", temprightpostO);
 
 
+    if (strlen(templeftpostO) != 0) {
+        if (strlen(templeftpreO) == 0) {
+            templeftpreO = temprightpreO;
+            templeftpostO = templeftpostO;
+        }
 
-    buildTree(NULL, templeftpreO, templeftpostO);
-    buildTree(NULL, temprightpreO, temprightpostO);
+    }
+
+    BTNode *root = (BTNode *) malloc(sizeof(BTNode));
+    root->id = preO[0];
+
+    if (strlen(templeftpreO) == 1) {
+//        printf("LEFT NODE:%c\n", templeftpreO[0]);
+        root->left = (BTNode *) malloc(sizeof(BTNode));
+        root->left->id = templeftpreO[0];
+        root->left->left = NULL;
+        root->left->right = NULL;
+    } else {
+        root->left = NULL;
+    }
+    if (strlen(temprightpreO) == 1) {
+//        printf("Right NODE:%c\n", temprightpreO[0]);
+        root->right = (BTNode *) malloc(sizeof(BTNode));
+        root->right->id = temprightpreO[0];
+        root->right->left = NULL;
+        root->right->right = NULL;
+
+    } else {
+        root->right = NULL;
+    }
+
+
+    buildTree(&root->left, templeftpreO, templeftpostO);
+    buildTree(&root->right, temprightpreO, temprightpostO);
+
+    *node = root;
 
 
 
