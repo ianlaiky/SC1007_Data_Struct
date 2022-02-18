@@ -138,8 +138,11 @@ void buildTree(BTNode **node, char *preO, char *postO) {
 
     printf("RIGHTposto: %s\n", temprightpostO);
 
+
+
     buildTree(NULL, templeftpreO, templeftpostO);
     buildTree(NULL, temprightpreO, temprightpostO);
+
 
 
 }
