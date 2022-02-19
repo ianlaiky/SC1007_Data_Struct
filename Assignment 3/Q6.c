@@ -110,12 +110,29 @@ void createExpTree(BTNode **root, char *prefix) {
 
     while (*prefix != '\0') {
         if (*prefix != ' ') {
+            if (!isEmptyStack(s)) {
+//                printf("Current Node item: %c\n", peek(s)->item);
+                // pop if left and right is not empty
+                BTNode *checker = peek(s);
+                while (checker->left != NULL && checker->right != NULL) {
+//                    printf("popping\n");
+                    pop(&s);
+                    checker = peek(s);
+                }
+
+
+            }
+
+
             if (*prefix >= '0' && *prefix <= '9') {
                 int num = 0;
                 while (*prefix >= '0' && *prefix <= '9') {
                     num = num * 10 + *prefix - '0';
                     prefix++;
                 }
+                // to differentiate int and char
+                // exceeding ascii 127 limit
+                num=num+10000;
                 BTNode *newNode = peek(s);
 
                 if (newNode->left == NULL) {
@@ -129,36 +146,43 @@ void createExpTree(BTNode **root, char *prefix) {
                     newNode->right->left = NULL;
                     newNode->right->right = NULL;
                 } else {
+
+
                     printf("Error: Too many numbers\n");
-                    exit(1);
+//                    exit(1);
 
                 }
 
 
-                printf("LEAF: %d \n", num);
+//                printf("LEAF: %d \n", num);
 
             } else {
+
+
                 BTNode *newNode = malloc(sizeof(BTNode));
                 newNode->item = *prefix;
                 newNode->left = NULL;
                 newNode->right = NULL;
                 if (isEmptyStack(s)) {
+                    *root = newNode;
                     push(&s, newNode);
                 } else {
+
                     BTNode *temp = peek(s);
                     if (temp->left == NULL) {
                         temp->left = newNode;
                     } else if (temp->right == NULL) {
                         temp->right = newNode;
                     } else {
+
                         printf("Error: Too many operators\n");
-                        exit(1);
+
                     }
-                    pop(&s);
+
                     push(&s, newNode);
                 }
 
-                printf("ROOT: %c \n", *prefix);
+//                printf("ROOT: %c \n", *prefix);
 
             }
 
@@ -174,15 +198,73 @@ void createExpTree(BTNode **root, char *prefix) {
 
 
 void printTree(BTNode *node) {
-    //Write your code here
-}
+    // Print in order traversal
 
+    if (node != NULL) {
+        printTree(node->left);
+        // if item less than 127, it must be a char
+        // e.g. '+' as 43 vs operand 43
+        if (node->item<10000) {
+            printf("%c ", node->item);
+        // else print as int
+
+        } else {
+            printf("%d ", node->item-10000);
+
+        }
+
+        printTree(node->right);
+    }
+
+}
 
 void printTreePostfix(BTNode *node) {
     //Write your code here
+    if (node != NULL) {
+        printTreePostfix(node->left);
+        printTreePostfix(node->right);
+        if(node->item<10000) {
+            printf("%c ", node->item);
+
+        }
+        else{
+            printf("%d ", node->item-10000);
+
+        }
+
+    }
 
 }
 
 double computeTree(BTNode *node) {
 //Write your code here
+
+    if (node != NULL) {
+        if (node->item>10000) {
+            return node->item-10000;
+        }
+        else {
+            double left = computeTree(node->left);
+            double right = computeTree(node->right);
+            switch (node->item) {
+                case '+':
+                    return left + right;
+                case '-':
+                    return left - right;
+                case '*':
+                    return left * right;
+                case '/':
+                    return left / right;
+                default:
+                    return 0;
+            }
+        }
+    }
+    else{
+        return 0;
+    }
+
 }
+
+
+
