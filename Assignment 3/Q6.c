@@ -100,12 +100,78 @@ void deleteTree(BTNode **root) {
     }
 }
 
-void createExpTree(BTNode **root, char *prefix) {
-    // Expression tree from prefix expression
 
+void createExpTree(BTNode **root, char *prefix) {
+
+    Stack s;
+    s.size = 0;
+    s.head = NULL;
+
+
+    while (*prefix != '\0') {
+        if (*prefix != ' ') {
+            if (*prefix >= '0' && *prefix <= '9') {
+                int num = 0;
+                while (*prefix >= '0' && *prefix <= '9') {
+                    num = num * 10 + *prefix - '0';
+                    prefix++;
+                }
+                BTNode *newNode = peek(s);
+
+                if (newNode->left == NULL) {
+                    newNode->left = malloc(sizeof(BTNode));
+                    newNode->left->item = num;
+                    newNode->left->left = NULL;
+                    newNode->left->right = NULL;
+                } else if (newNode->right == NULL) {
+                    newNode->right = malloc(sizeof(BTNode));
+                    newNode->right->item = num;
+                    newNode->right->left = NULL;
+                    newNode->right->right = NULL;
+                } else {
+                    printf("Error: Too many numbers\n");
+                    exit(1);
+
+                }
+
+
+                printf("LEAF: %d \n", num);
+
+            } else {
+                BTNode *newNode = malloc(sizeof(BTNode));
+                newNode->item = *prefix;
+                newNode->left = NULL;
+                newNode->right = NULL;
+                if (isEmptyStack(s)) {
+                    push(&s, newNode);
+                } else {
+                    BTNode *temp = peek(s);
+                    if (temp->left == NULL) {
+                        temp->left = newNode;
+                    } else if (temp->right == NULL) {
+                        temp->right = newNode;
+                    } else {
+                        printf("Error: Too many operators\n");
+                        exit(1);
+                    }
+                    pop(&s);
+                    push(&s, newNode);
+                }
+
+                printf("ROOT: %c \n", *prefix);
+
+            }
+
+
+        }
+
+
+        prefix++;
+    }
 
 
 }
+
 
 void printTree(BTNode *node) {
     //Write your code here
