@@ -134,10 +134,96 @@ void printBTNode(BTNode *root, int space, int left) {
     }
 }
 
+int checkIfNodeExists(BTNode *node, int nodeV) {
+    if (node == NULL) return 0;
+    if (node->nodeV == nodeV) return 1;
+    int leftCost = checkIfNodeExists(node->left, nodeV);
+    int rightCost = checkIfNodeExists(node->right, nodeV);
+
+    if (leftCost == 1 || rightCost == 1) return 1;
+    else return 0;
+}
+
+int height(BTNode *node) {
+    if (node == NULL) return 0;
+    int leftHeight = height(node->left);
+    int rightHeight = height(node->right);
+
+    if (leftHeight > rightHeight) return leftHeight + 1;
+    else return rightHeight + 1;
+}
+
+Queue *printCurrentLevel(BTNode *node, int level, Queue *hqueue) {
+    if (node == NULL) return hqueue;
+    if (level == 1) {
+//        printf("%d ", node->nodeV);
+        // adding nodes to queue
+        enqueue(hqueue, node);
+
+
+    } else {
+        printCurrentLevel(node->left, level - 1, hqueue);
+        printCurrentLevel(node->right, level - 1, hqueue);
+    }
+}
+
 int twoNodesCost(BTNode *node, int nodeV1, int nodeV2) {
 
-// Warning: Printing unwanted or ill-formatted data to output will cause the test cases to fail
-    * /
 
-// Write your code here
+    Queue *q = malloc(sizeof(Queue));
+    q->head = malloc(sizeof(QueueNode));
+    q->tail = NULL;
+    q->size = 0;
+
+
+
+
+    // Traverse by level
+    int height4 = height(node);
+    int i;
+
+    for (i = 1; i <= height4; i++) {
+        printCurrentLevel(node, i, q);
+        printf("\n");
+    }
+
+
+    int arrSize = q->size;
+    BTNode *templist[arrSize];
+    int templistIndex = 0;
+    while (!isEmptyQueue(*q)) {
+        templist[templistIndex] = getFront(*q);
+        dequeue(q);
+        templistIndex++;
+    }
+    //reverse the list
+    int j;
+    BTNode *reversedList[arrSize];
+    for (j = 0; j < arrSize; j++) {
+        reversedList[j] = templist[arrSize - j - 1];
+    }
+
+    //print the list
+    for (j = 0; j < arrSize; j++) {
+//        printf("listt %d ", reversedList[j]->nodeV);
+    }
+
+    int sum = 0;
+    for (int k = 0; k < arrSize; ++k) {
+        if (checkIfNodeExists(reversedList[k], nodeV1) == 1 || checkIfNodeExists(reversedList[k], nodeV2) == 1) {
+            sum += reversedList[k]->nodeV;
+//            printf("sum%d \n", reversedList[k]->nodeV);
+
+        }
+        if (checkIfNodeExists(reversedList[k], nodeV1) == 1 && checkIfNodeExists(reversedList[k], nodeV2) == 1) {
+
+            break;
+        }
+
+    }
+
+
+    return sum;
+
+
 }

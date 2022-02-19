@@ -3,5 +3,5 @@ project(SC1007_Data_Struct C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(SC1007_Data_Struct Assignment\ 3/Q6.c)
+add_executable(SC1007_Data_Struct Assignment\ 3/Q7.c)
 #add_executable(SC1007_Data_Struct Lab/Week\ 5/mainQ3.c)
