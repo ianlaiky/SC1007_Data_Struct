@@ -125,6 +125,7 @@ void createExpTree(BTNode **root, char *prefix) {
                 while (checker->left != NULL && checker->right != NULL) {
 //                    printf("popping\n");
                     pop(&s);
+//                    if(isEmptyStack(s)) return;
                     checker = peek(s);
                 }
 
