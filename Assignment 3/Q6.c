@@ -106,10 +106,10 @@ void createExpTree(BTNode **root, char *prefix) {
     Stack s;
     s.size = 0;
     s.head = NULL;
-    if(strlen(prefix) == 0) return;
-    if(strlen(prefix)==1){
+    if (strlen(prefix) == 0) return;
+    if (strlen(prefix) == 1) {
         *root = malloc(sizeof(BTNode));
-        (*root)->item = prefix[0] - '0'+10000;
+        (*root)->item = prefix[0] - '0' + 10000;
         (*root)->left = NULL;
         (*root)->right = NULL;
         return;
@@ -125,7 +125,7 @@ void createExpTree(BTNode **root, char *prefix) {
                 while (checker->left != NULL && checker->right != NULL) {
 //                    printf("popping\n");
                     pop(&s);
-//                    if(isEmptyStack(s)) return;
+                    if(isEmptyStack(s)) return;
                     checker = peek(s);
                 }
 
@@ -141,7 +141,7 @@ void createExpTree(BTNode **root, char *prefix) {
                 }
                 // to differentiate int and char
                 // exceeding ascii 127 limit
-                num=num+10000;
+                num = num + 10000;
                 BTNode *newNode = peek(s);
 
                 if (newNode->left == NULL) {
@@ -214,12 +214,12 @@ void printTree(BTNode *node) {
         printTree(node->left);
         // if item less than 127, it must be a char
         // e.g. '+' as 43 vs operand 43
-        if (node->item<10000) {
+        if (node->item < 10000) {
             printf("%c ", node->item);
-        // else print as int
+            // else print as int
 
         } else {
-            printf("%d ", node->item-10000);
+            printf("%d ", node->item - 10000);
 
         }
 
@@ -233,12 +233,11 @@ void printTreePostfix(BTNode *node) {
     if (node != NULL) {
         printTreePostfix(node->left);
         printTreePostfix(node->right);
-        if(node->item<10000) {
+        if (node->item < 10000) {
             printf("%c ", node->item);
 
-        }
-        else{
-            printf("%d ", node->item-10000);
+        } else {
+            printf("%d ", node->item - 10000);
 
         }
 
@@ -251,10 +250,9 @@ double computeTree(BTNode *node) {
 
 
     if (node != NULL) {
-        if (node->item>10000) {
-            return node->item-10000;
-        }
-        else {
+        if (node->item > 10000) {
+            return node->item - 10000;
+        } else {
             double left = computeTree(node->left);
             double right = computeTree(node->right);
             switch (node->item) {
@@ -270,8 +268,7 @@ double computeTree(BTNode *node) {
                     return 0;
             }
         }
-    }
-    else{
+    } else {
         return 0;
     }
 
