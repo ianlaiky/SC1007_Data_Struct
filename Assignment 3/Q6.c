@@ -106,6 +106,14 @@ void createExpTree(BTNode **root, char *prefix) {
     Stack s;
     s.size = 0;
     s.head = NULL;
+    if(strlen(prefix) == 0) return;
+    if(strlen(prefix)==1){
+        *root = malloc(sizeof(BTNode));
+        (*root)->item = prefix[0] - '0'+10000;
+        (*root)->left = NULL;
+        (*root)->right = NULL;
+        return;
+    }
 
 
     while (*prefix != '\0') {
@@ -200,6 +208,7 @@ void createExpTree(BTNode **root, char *prefix) {
 void printTree(BTNode *node) {
     // Print in order traversal
 
+
     if (node != NULL) {
         printTree(node->left);
         // if item less than 127, it must be a char
@@ -238,6 +247,7 @@ void printTreePostfix(BTNode *node) {
 
 double computeTree(BTNode *node) {
 //Write your code here
+
 
     if (node != NULL) {
         if (node->item>10000) {
