@@ -172,24 +172,28 @@ int countNodes(BTNode *root) {
     if (root == NULL) return 0;
     else return 1 + countNodes(root->left) + countNodes(root->right);
 }
-int min =-1;
-// check if tree has a valid BST
-int isBST(BTNode *root) {
 
-    if (root == NULL) return 1;
+// print in order traversal
+void inOrder(BTNode *root, int *arr, int *index) {
+    if (root != NULL) {
+        inOrder(root->left, arr, index);
+//        printf("%d ", root->item);
+        arr[*index] = root->item;
+        (*index)++;
+        inOrder(root->right, arr, index);
+    }
+}
 
-    if (root->left != NULL && root->left->item > root->item && root->left->item < min){
-        return 0;
+int isBST(BTNode *head) {
+    int *arr = malloc(sizeof(int) * countNodes(head));
+    int index = 0;
+    inOrder(head, arr, &index);
+    for (int i = 0; i < index - 1; i++) {
+        if (arr[i] > arr[i + 1]) {
+            return 0;
+        }
     }
-    if (root->right != NULL && root->right->item < root->item && root->right->item > min){
-        return 0;
-    }
-//    if(root->item<min && min!=-1){
-//        return 0;
-//    }
-    min = root->item;
-    printf("%d\n", min);
-    return isBST(root->left) && isBST(root->right);
+    return 1;
 }
 
 
@@ -198,8 +202,12 @@ BTNode *findLargestBST(BTNode *root) {
 
     BTNode *temp = root;
 
+//    int a = isBST(root->right);
+//    printf("return %d\n", a);
+
     while (temp->right != NULL || temp->left != NULL) {
-        printf("bst:%d item: %d \n", isBST(temp),temp->item);
+//        printf("bst:%d item: %d \n", isBST(temp), temp->item);
+//        if (!isBST(temp) && countNodes(temp) <= 5) { return NULL; }
         if (isBST(temp)) {
             break;
         } else {
