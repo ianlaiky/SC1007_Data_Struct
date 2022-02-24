@@ -218,8 +218,90 @@ int isEmptyStack(Stack s) {
 
 void BSTCorrection(BTNode *root) {
 
+    // print in order traversal of the tree without recursion
+    Stack s;
+    s.top = NULL;
+    s.size = 0;
 
-// Write your code here
+    Queue q;
+    q.head = NULL;
+    q.tail = NULL;
+    q.size = 0;
+
+    BTNode *temp = root;
+    while (temp != NULL) {
+        push(&s, temp);
+        temp = temp->left;
+    }
+
+    while (!isEmptyStack(s)) {
+        temp = peek(s);
+        pop(&s);
+//        printf("%d ", temp->item);
+        enqueue(&q, temp);
+
+        if (temp->right != NULL) {
+            temp = temp->right;
+            while (temp != NULL) {
+                push(&s, temp);
+                temp = temp->left;
+            }
+        }
+    }
+
+
+    int indexOfswap = -1;
+
+
+    QueueNode *temp2 = q.head;
+
+    int data[q.size];
+    int prev = -1;
+    int index = 0;
+    while (temp2 != NULL) {
+        temp = temp2->data;
+        temp2 = temp2->next;
+//        printf("%d ", temp->item);
+        data[index++] = temp->item;
+        if (prev != -1 && temp->item < prev) {
+
+
+            if (indexOfswap == -1) {
+                indexOfswap = prev;
+            }
+        }
+        prev = temp->item;
+
+    }
+
+    indexOfswap--;
+
+
+
+    // Sort the array in ascending order
+    int i, j;
+    for (i = 0; i < q.size - 1; i++) {
+        for (j = 0; j < q.size - i - 1; j++) {
+            if (data[j] > data[j + 1]) {
+                int temp = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp;
+            }
+        }
+    }
+
+
+    int currindex = 0;
+//
+    while (!isEmptyQueue(q)) {
+
+        BTNode *temp3 = getFront(q);
+        if (temp3->item != data[currindex]) {
+            temp3->item = data[currindex];
+        }
+        dequeue(&q);
+        currindex++;
+    }
 
 
 }
