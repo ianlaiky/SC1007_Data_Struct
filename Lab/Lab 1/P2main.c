@@ -108,4 +108,68 @@ void deleteList2(LinkedList *ll){
 
 void moveEvenItemsToBack(LinkedList *ll){
 
+
+    ListNode *odd=NULL;
+    ListNode *oddhead=NULL;
+    ListNode *even=NULL;
+    ListNode *evenhead=NULL;
+
+    ListNode *cur = ll->head;
+
+    while(cur!=NULL){
+
+        printf("123: %d\n",cur->item);
+
+        if(cur->item%2!=0){
+           if(oddhead==NULL){
+            oddhead = (ListNode*)malloc(sizeof(ListNode));
+            oddhead->item = cur->item;
+            oddhead->next=NULL;
+            odd=oddhead;
+
+            }else{
+
+            odd->next = (ListNode*)malloc(sizeof(ListNode));
+            odd = odd->next;
+            odd->item = cur->item;
+            odd->next=NULL;
+
+
+            }
+
+        }else{
+            if(evenhead==NULL){
+            evenhead = (ListNode*)malloc(sizeof(ListNode));
+            evenhead->item = cur->item;
+            evenhead->next=NULL;
+            even=evenhead;
+
+            }else{
+
+            even->next = (ListNode*)malloc(sizeof(ListNode));
+            even = even->next;
+            even->item = cur->item;
+            even->next=NULL;
+
+
+            }
+
+
+        }
+
+
+
+        cur=cur->next;
+
+
+
+    }
+
+    odd->next = evenhead;
+
+ll->head=oddhead;
+
+
+
+
 }

@@ -95,4 +95,41 @@ void deleteList(ListNode **ptrHead){
 
 int moveMaxToFront(ListNode **ptrHead){
 
+    ListNode *first = *ptrHead;
+    ListNode *cur = *ptrHead;
+    ListNode *cur2 = *ptrHead;
+    ListNode *prev;
+
+    int max=cur->item;
+    while(cur!=NULL){
+
+
+//        printf("q2 %d\n",cur->item);
+        if(cur->item>max){
+            max = cur->item;
+        }
+        cur=cur->next;
+    }
+//printf("max %d\n",max);
+
+
+    while(cur2!=NULL){
+
+
+    if(max==cur2->item){
+        prev->next = cur2->next;
+        cur2->next=first;
+
+(*ptrHead) = cur2;
+
+
+    }
+
+        prev = cur2;
+        cur2=cur2->next;
+
+
+    }
+
+
 }
