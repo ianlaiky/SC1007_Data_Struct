@@ -166,6 +166,17 @@ void calDegreeV(Graph g, int *degreeV)
 {
     // Question 3
     // Write your code here
+
+    int i,j;
+    ListNode *temp = NULL;
+    for(i=0;i<g.V;i++){
+        degreeV[i]=0;
+        ListNode *temp = g.adj.list[i];
+        while(temp!=NULL){
+            degreeV[i]++;
+            temp = temp->next;
+        }
+    }
 }
 
 void printDegreeV(int *degreeV,int V)
