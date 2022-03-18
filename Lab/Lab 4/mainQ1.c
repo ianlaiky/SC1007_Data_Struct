@@ -65,4 +65,55 @@ void deleteTree(BTNode **root){
 
 void insertBSTNode(BTNode** cur, int item){
     //Write Your Code Here
+    BTNode *temp=*cur;
+    if(temp==NULL){
+        printf("123");
+        temp=(BTNode*)malloc(sizeof(BTNode));
+        temp->item=item;
+        temp->left=NULL;
+        temp->right=NULL;
+        *cur=temp;
+    }else{
+
+        while(temp!=NULL){
+            if((temp->item)>item){
+                if(temp->left==NULL){
+
+//                               printf(" 123ssssssssssdd ");
+                    temp->left=(BTNode*)malloc(sizeof(BTNode));
+                    temp->left->item=item;
+                    temp->left->left=NULL;
+                    temp->left->right=NULL;
+                    break;
+                }
+                temp=temp->left;
+            }else if((temp->item)<item){
+
+                 if(temp->right==NULL){
+//                            printf(" 123sdd ");
+                    temp->right=(BTNode*)malloc(sizeof(BTNode));
+                    temp->right->item=item;
+                    temp->right->left=NULL;
+                    temp->right->right=NULL;
+                    break;
+                }
+                  temp=temp->right;
+            }else{
+                printf("Duplicate %d",temp->item);
+                break;
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -94,4 +94,44 @@ void deleteTree(BTNode **root){
 }
 int removeBSTNode(BTNode **nodePtr, int item){
     //Write Your Code Here
+
+    BTNode *temp = *nodePtr;
+
+    while(temp!=NULL){
+
+
+        if(temp->item>item){
+            temp=temp->left;
+        }else if(temp->item<item){
+            temp=temp->right;
+        }else{
+           break;
+        }
+    }
+
+
+    BTNode *temp2 = temp->left;
+    BTNode *temp2prev=NULL;
+
+    while(temp2->right!=NULL){
+        temp2prev = temp2;
+        temp2 = temp2->right;
+
+
+    }
+    printf("%dadfdf",temp2prev->item);
+    printf("%dadfdf",temp2->item);
+
+    temp->item=temp2->item;
+    if(temp2->left!=NULL){
+        temp2prev->right=temp2->left;
+    }
+
+    temp2prev->right=NULL;
+
+
+
+
+
+
 }
