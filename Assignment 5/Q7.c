@@ -106,7 +106,7 @@ void printGraphMatrix(Graph g) {
 }
 
 void adjL2adjM(Graph *g) {
-    printf("START\n");
+//    printf("START\n");
     // add your code here
 
 //    g->type = ADJ_MATRIX;
@@ -126,26 +126,19 @@ void adjL2adjM(Graph *g) {
     }
 
 
-
-
-    for(int i = 0;i<g->V;i++){
-
+    for (int i = 0; i < g->V; i++) {
         ListNode *temp;
         temp = g->adj.list[i];
-
         while (temp != NULL) {
-            printf("%d\n", temp->vertex);
+//            printf("%d\n", temp->vertex);
             g->adj.matrix[i][temp->vertex - 1] = 1;
-
-
-
             temp = temp->next;
         }
 
     }
 
     g->type = ADJ_MATRIX;
-    printf("END\n");
+//    printf("END\n");
 }
 
 
