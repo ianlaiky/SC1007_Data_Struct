@@ -93,6 +93,17 @@ void calDegreeV(Graph g, int *degreeV)
 {
     // Write your code here
 
+    for(int i=0;i<g.V;i++){
+        int count=0;
+        for(int j=0;j<g.V;j++){
+            if(g.adj.matrix[i][j]==1){
+                count++;
+            }
+        }
+        degreeV[i]=count;
+//        printf("%d\n",count);
+    }
+
 
 
 }
