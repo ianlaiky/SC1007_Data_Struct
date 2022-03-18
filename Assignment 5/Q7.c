@@ -112,14 +112,39 @@ void adjL2adjM(Graph *g) {
 //    g->type = ADJ_MATRIX;
 //    printf("%d\n", g->V);
 //    printf("%d\n", g->adj.list[0]->vertex);
-    ListNode *temp;
-    temp = g->adj.list[0];
 
-    while (temp != NULL) {
-        printf("%d\n", temp->vertex);
-        temp = temp->next;
+
+    g->adj.matrix = (int **) malloc(g->V * sizeof(int *));
+
+    // initalise matrix to 0
+    int i, j;
+    for (i = 0; i < g->V; i++) {
+        g->adj.matrix[i] = (int *) malloc(g->V * sizeof(int));
+        for (j = 0; j < g->V; j++) {
+            g->adj.matrix[i][j] = 0;
+        }
     }
 
+
+
+
+    for(int i = 0;i<g->V;i++){
+
+        ListNode *temp;
+        temp = g->adj.list[i];
+
+        while (temp != NULL) {
+            printf("%d\n", temp->vertex);
+            g->adj.matrix[i][temp->vertex - 1] = 1;
+
+
+
+            temp = temp->next;
+        }
+
+    }
+
+    g->type = ADJ_MATRIX;
     printf("END\n");
 }
 
