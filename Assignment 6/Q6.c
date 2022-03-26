@@ -86,6 +86,50 @@ int main()
 int Connected (Graph g)
 {
     //write your code here
+
+    int i;
+    Stack s;
+    s.size = 0;
+    s.head = NULL;
+
+    for(i=0;i<g.V;i++)
+    {
+        if(g.visited[i]==0)
+        {
+            push(&s,i);
+            while(!isEmptyStack(s))
+            {
+                int v = peek(s);
+                pop(&s);
+                g.visited[v] = 1;
+                int j;
+                for(j=0;j<g.V;j++)
+                {
+                    if(g.matrix[v][j]==1 && g.visited[j]==0)
+                    {
+                        push(&s,j);
+                    }
+                }
+            }
+        }
+    }
+
+    for(i=0;i<g.V;i++)
+    {
+        if(g.visited[i]==0)
+            return 0;
+    }
+    return 1;
+
+
+
+
+
+
+
+
+
+
 }
 
 void printGraphMatrix(Graph g)
