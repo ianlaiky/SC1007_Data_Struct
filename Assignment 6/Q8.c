@@ -121,7 +121,7 @@ int Connected(Graph g) {
                 pop(&s);
             }
         }
-        if (counter+1 != g.V) {
+        if (counter + 1 != g.V) {
             return 0;
         }
         printf("\n");
