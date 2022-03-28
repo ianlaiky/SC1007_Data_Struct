@@ -84,6 +84,10 @@ int main()
 int SD(Graph g, int v, int z){
     // Write your code here
 
+    int dist[g.V];
+    for(int i=0;i<g.V;i++){
+        dist[i] = 0;
+    }
     Queue q;
     q.size = 0;
     q.head = NULL;
@@ -91,10 +95,10 @@ int SD(Graph g, int v, int z){
 
     int w;
     int i;
-
+    int connected = 0;
     enqueue(&q,v);
     g.visited[v-1] = 1;
-    printf("%d ",v);
+//    printf("%d ",v);
 
     while(isEmptyQueue(q)==0){
         w = dequeue(&q);
@@ -104,11 +108,20 @@ int SD(Graph g, int v, int z){
             if(g.matrix[w-1][i] == 1 && g.visited[i]==0)
             {
                 g.visited[i]=1;
-                printf("%d ",i+1);
+//                printf("%d ",i+1);
                 enqueue(&q,i+1);
+                dist[i] = dist[w-1] + 1;
+                if(i+1==z)
+                    connected = 1;
             }
         }
     }
+
+    if(connected==1)
+        return dist[z-1];
+    else
+        return -1;
+
 
 
 
