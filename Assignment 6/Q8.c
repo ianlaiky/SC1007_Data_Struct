@@ -85,7 +85,39 @@ int Connected (Graph g)
 {
     //write your code here
 
+    int i;
+    Stack s;
+    s.size = 0;
+    s.head = NULL;
 
+    int w;
+
+
+    push(&s,1);
+    g.visited[0] = 1;
+//    printf("%d ",v);
+
+    int stopNode; // no unvisited vertices flag
+    while(isEmptyStack(s)==0){
+        w = peek(s);
+
+        stopNode = 0;
+        for(i=0;i<g.V;i++)
+        {
+            if(g.matrix[w-1][i] == 1 && g.visited[i]==0)
+            {
+                push(&s,i+1);
+                g.visited[i]=1;
+                printf("%d ",i+1);
+                stopNode = 1;
+                break;
+            }
+        }
+
+        if(stopNode==0){
+            pop(&s);
+        }
+    }
 
 
 
