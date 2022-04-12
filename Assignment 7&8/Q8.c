@@ -43,6 +43,31 @@ int graphColoring(
         int **graph, int m,
         int *color, int v) {
     //write your code here
+
+    // If all vertices are assigned
+    if (v == V) {
+        count++;
+
+        return 1;
+    }
+
+    // Try different color
+    for (int c = 1; c <= m; c++) {
+        if (isSafe(v, graph, color, c)) {
+            color[v] = c;
+            graphColoring(graph, m, color, v + 1);
+//            if (graphColoring(graph, m, color, v + 1))
+//                return 1;
+            color[v] = 0;
+        }
+    }
+    return 0;
+
+
+
+
+
+
 }
 
 
