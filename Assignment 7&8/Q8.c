@@ -8,8 +8,7 @@ int count = 0; // count the number of solutions
 int V; //number of regions
 
 /* A utility function to print solution */
-void printSolution(int* color)
-{
+void printSolution(int *color) {
     printf(
             "Solution Exists:"
             " Following are the assigned colors \n");
@@ -30,9 +29,8 @@ void printSolution(int* color)
    vertices(i-->adj vertices) or
    not (i.e, color[i]==c) */
 int isSafe(
-        int v, int** graph,
-        int* color, int c)
-{
+        int v, int **graph,
+        int *color, int c) {
     for (int i = 0; i < V; i++)
         if (graph[v][i] && c == color[i])
             return 0;
@@ -42,36 +40,34 @@ int isSafe(
 /* A backtracking function
 to solve m coloring problem */
 int graphColoring(
-        int** graph, int m,
-        int* color, int v)
-{
+        int **graph, int m,
+        int *color, int v) {
     //write your code here
 }
 
 
-int main()
-{
+int main() {
     int m;
     int **graph;
     int *color;
 
     printf("Enter number of colors:\n");
-    scanf("%d",&m);
+    scanf("%d", &m);
 
     printf("Enter number of regions:\n");
-    scanf("%d",&V);
+    scanf("%d", &V);
 
-    int i,j;
-    color = (int *) malloc(V*sizeof(int));
-    graph = (int **) malloc(V*sizeof(int *));
+    int i, j;
+    color = (int *) malloc(V * sizeof(int));
+    graph = (int **) malloc(V * sizeof(int *));
 
-    for (i=0;i<V;i++)
-        graph[i] = (int *) malloc(V*sizeof(int));
+    for (i = 0; i < V; i++)
+        graph[i] = (int *) malloc(V * sizeof(int));
 
     printf("Input the adjacency matrix:\n");
     for (i = 0; i < V; i++)
         for (j = 0; j < V; j++)
-            scanf("%d",&graph[i][j]);
+            scanf("%d", &graph[i][j]);
 
 
     // Initialize all color values as 0.
