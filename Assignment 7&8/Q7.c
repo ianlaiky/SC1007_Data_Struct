@@ -3,15 +3,14 @@
 #include <stdlib.h>
 
 
-
 int max(int i, int i1);
 
 int bottom_up_dp(int n, int *s, int *v, int C) {
     //write your code here
 
-    int **table = (int **)malloc(sizeof(int *) * n+1);
+    int **table = (int **) malloc(sizeof(int *) * n + 1);
     for (int i = 0; i <= n; i++) {
-        table[i] = (int *)malloc(sizeof(int) * C+1);
+        table[i] = (int *) malloc(sizeof(int) * C + 1);
     }
 
     //set all values to 0
@@ -24,9 +23,9 @@ int bottom_up_dp(int n, int *s, int *v, int C) {
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= C; j++) {
             if (s[i] <= j) {
-                table[i][j] = max(table[i-1][j], table[i-1][j-s[i]] + v[i]);
+                table[i][j] = max(table[i - 1][j], table[i - 1][j - s[i]] + v[i]);
             } else {
-                table[i][j] = table[i-1][j];
+                table[i][j] = table[i - 1][j];
             }
         }
     }
