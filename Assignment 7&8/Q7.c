@@ -2,22 +2,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *M;
 
+
+int max(int i, int i1);
 
 int bottom_up_dp(int n, int *s, int *v, int C) {
     //write your code here
 
-    int i;
+    int **table = (int **)malloc(sizeof(int *) * n+1);
+    for (int i = 0; i <= n; i++) {
+        table[i] = (int *)malloc(sizeof(int) * C+1);
+    }
 
-//    M[0] = 0;
-//    M[1] = 1;
+    //set all values to 0
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= C; j++) {
+            table[i][j] = 0;
+        }
+    }
 
-    for (i = 0; i <= n; i++)
-        M[i] = M[i - 1] + M[i - 2];
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= C; j++) {
+            if (s[i] <= j) {
+                table[i][j] = max(table[i-1][j], table[i-1][j-s[i]] + v[i]);
+            } else {
+                table[i][j] = table[i-1][j];
+            }
+        }
+    }
 
-    return M[n];
+    return table[n][C];
 
+}
+
+int max(int i, int i1) {
+    if (i > i1) {
+        return i;
+    } else {
+        return i1;
+    }
 
 }
 
@@ -30,8 +53,7 @@ int main() {
     int i, j;
     printf("Enter the number of items n:\n");
     scanf("%d", &n);
-    for (i = 0; i <= n; i++)
-        M[i] = -1;
+
     printf("Enter the capacity C:\n");
     scanf("%d", &C);
     s = (int *) malloc(sizeof(int) * (n + 1));
