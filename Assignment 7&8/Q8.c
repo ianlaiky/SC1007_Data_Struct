@@ -62,12 +62,6 @@ int graphColoring(
         }
     }
     return 0;
-
-
-
-
-
-
 }
 
 
