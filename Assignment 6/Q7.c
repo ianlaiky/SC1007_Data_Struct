@@ -121,13 +121,6 @@ int SD(Graph g, int v, int z){
         return dist[z-1];
     else
         return -1;
-
-
-
-
-
-
-
 }
 
 void printGraphMatrix(Graph g)
