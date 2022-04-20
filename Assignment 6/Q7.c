@@ -83,7 +83,6 @@ int main()
 
 int SD(Graph g, int v, int z){
     // Write your code here
-
     int dist[g.V];
     for(int i=0;i<g.V;i++){
         dist[i] = 0;
@@ -92,7 +91,6 @@ int SD(Graph g, int v, int z){
     q.size = 0;
     q.head = NULL;
     q.tail = NULL;
-
     int w;
     int i;
     int connected = 0;
@@ -116,7 +114,6 @@ int SD(Graph g, int v, int z){
             }
         }
     }
-
     if(connected==1)
         return dist[z-1];
     else
